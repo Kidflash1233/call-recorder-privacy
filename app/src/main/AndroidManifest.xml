@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.synapticweb.callrecorder"
     tools:ignore="GoogleAppIndexingWarning">
     <!--android:sharedUserId="android.uid.system" -->
     <uses-feature android:name="android.hardware.telephony"
@@ -30,7 +29,8 @@
         >
 
         <activity android:name=".contactslist.ContactsListActivityMain"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,11 +69,11 @@
         <activity android:name=".setup.ShowEulaActivity"
             android:parentActivityName=".setup.SetupActivity" />
 
-        <receiver android:name=".recorder.CallReceiver">
+        <receiver android:name=".recorder.CallReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
-
         </receiver>
 
         <receiver android:name=".recorder.ControlRecordingReceiver"
