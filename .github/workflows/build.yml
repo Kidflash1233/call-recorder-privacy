@@ -1,0 +1,71 @@
+name: Build Privacy Call Recorder
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Privacy Release APK
+      run: ./gradlew assemblePrivacyRelease
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: call-recorder-privacy-apk
+        path: app/build/outputs/apk/privacy/release/*.apk
+        retention-days: 30
+
+    - name: Create Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: app/build/outputs/apk/privacy/release/*.apk
+        tag_name: v1.1.4-privacy-${{ github.run_number }}
+        name: Privacy Call Recorder Build ${{ github.run_number }}
+        body: |
+          ## Privacy-First Call Recorder
+          
+          ✅ **100% Open Source**
+          ✅ **Zero Telemetry** (No Firebase, Crashlytics, or ACRA)
+          ✅ **Self-Hosted** (All recordings on device)
+          ✅ **Privacy First** (No network access required)
+          ✅ **Optimized** (For Samsung SM-S908U, Android 16)
+          
+          ### What was removed:
+          - Firebase Analytics
+          - Crashlytics
+          - ACRA crash reporting
+          - All tracking/telemetry
+          
+          ### Installation:
+          1. Download the APK
+          2. Enable "Install from Unknown Sources" if needed
+          3. Install APK
+          4. Grant permissions
+          5. Configure settings
+          6. Start recording!
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

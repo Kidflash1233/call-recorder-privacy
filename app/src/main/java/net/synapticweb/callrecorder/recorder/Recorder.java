@@ -15,7 +15,7 @@ import net.synapticweb.callrecorder.CrApp;
 import net.synapticweb.callrecorder.CrLog;
 import net.synapticweb.callrecorder.settings.SettingsFragment;
 
-import org.acra.ACRA;
+// REMOVED: ACRA import - ZERO TELEMETRY
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -40,9 +40,7 @@ public class Recorder {
     private boolean hasError = false;
     private Context context;
 
-    private static final String ACRA_FORMAT = "format";
-    private static final String ACRA_MODE = "mode";
-    private static final String ACRA_SAVE_PATH = "save_path";
+    // REMOVED: ACRA constants - ZERO TELEMETRY
 
      Recorder(Context context) {
          this.context = context;
@@ -83,14 +81,7 @@ public class Recorder {
         audioFile = new File(recordingsDir, fileName);
         CrLog.log(CrLog.DEBUG, String.format("Recording session started. Format: %s. Mode: %s. Save path: %s",
                 format, mode, audioFile.getAbsolutePath()));
-        //This data is cleared in RecorderService::onDestroy().
-        try {
-            ACRA.getErrorReporter().putCustomData(ACRA_FORMAT, format);
-            ACRA.getErrorReporter().putCustomData(ACRA_MODE, mode);
-            ACRA.getErrorReporter().putCustomData(ACRA_SAVE_PATH, audioFile.getAbsolutePath());
-        }
-        catch (IllegalStateException exc) {
-        }
+        // REMOVED: ACRA crash reporting - ZERO TELEMETRY
 
         if(format.equals(WAV_FORMAT))
             recordingThread = new Thread(new RecordingThreadWav(context, mode, this));

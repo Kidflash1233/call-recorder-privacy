@@ -22,7 +22,7 @@ import androidx.annotation.NonNull;
 import net.synapticweb.callrecorder.BuildConfig;
 import net.synapticweb.callrecorder.CrLog;
 
-import org.acra.ACRA;
+// REMOVED: ACRA import - ZERO TELEMETRY
 
 import java.io.File;
 import java.io.IOException;
@@ -60,9 +60,7 @@ class AudioPlayer extends Thread implements PlayerAdapter {
     private int maxWavBuffers;
     private float gainDb = 0;
 
-    private final static String ACRA_MODE = "mode";
-    private final static String ACRA_SIZE = "file_size";
-    private final static String ACRA_FORMAT = "format";
+    // REMOVED: ACRA constants - ZERO TELEMETRY
 
 
     AudioPlayer(PlaybackListenerInterface listener) {
@@ -206,9 +204,7 @@ class AudioPlayer extends Thread implements PlayerAdapter {
 
        //noinspection CatchMayIgnoreException
        try {
-           ACRA.getErrorReporter().putCustomData(ACRA_FORMAT, formatName);
-           ACRA.getErrorReporter().putCustomData(ACRA_MODE, channelCount == 1 ? "mono" : "stereo");
-           ACRA.getErrorReporter().putCustomData(ACRA_SIZE, (audioFile.length() / 1024) + "KB");
+           // REMOVED: ACRA crash reporting - ZERO TELEMETRY
        }
        catch (IllegalStateException exc) {
        }
@@ -518,7 +514,7 @@ class AudioPlayer extends Thread implements PlayerAdapter {
         }
         stopUpdatingPosition(true);
        try {
-           ACRA.getErrorReporter().clearCustomData();
+           // REMOVED: ACRA clear data - ZERO TELEMETRY
        }
        catch (IllegalStateException ignored) {}
     }

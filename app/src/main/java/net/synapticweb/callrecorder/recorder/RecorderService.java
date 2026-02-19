@@ -36,7 +36,7 @@ import net.synapticweb.callrecorder.data.Contact;
 import net.synapticweb.callrecorder.data.Recording;
 import net.synapticweb.callrecorder.data.Repository;
 import net.synapticweb.callrecorder.settings.SettingsFragment;
-import org.acra.ACRA;
+// REMOVED: ACRA import - ZERO TELEMETRY
 import javax.inject.Inject;
 
 public class RecorderService extends Service {
@@ -63,8 +63,7 @@ public class RecorderService extends Service {
     static final String ACTION_STOP_SPEAKER = "net.synapticweb.callrecorder.STOP_SPEAKER";
     static final String ACTION_START_SPEAKER = "net.synapticweb.callrecorder.START_SPEAKER";
 
-    static final String ACRA_PHONE_NUMBER = "phone_number";
-    static final String ACRA_INCOMING = "incoming";
+    // REMOVED: ACRA constants - ZERO TELEMETRY
 
     @Override
     public IBinder onBind(Intent i){
@@ -162,8 +161,7 @@ public class RecorderService extends Service {
         incoming = intent.getBooleanExtra(CallReceiver.ARG_INCOMING, false);
         CrLog.log(CrLog.DEBUG, String.format("Recorder service started. Phone number: %s. Incoming: %s", receivedNumPhone, incoming));
         try {
-            ACRA.getErrorReporter().putCustomData(ACRA_PHONE_NUMBER, receivedNumPhone);
-            ACRA.getErrorReporter().putCustomData(ACRA_INCOMING, incoming.toString());
+            // REMOVED: ACRA crash reporting - ZERO TELEMETRY
         }
         catch (IllegalStateException ignored) {
         }
@@ -314,7 +312,7 @@ public class RecorderService extends Service {
     private void onDestroyCleanUp() {
         resetState();
         try {
-            ACRA.getErrorReporter().clearCustomData();
+            // REMOVED: ACRA clear data - ZERO TELEMETRY
         }
         catch (IllegalStateException ignored) {
         }

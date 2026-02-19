@@ -13,26 +13,18 @@ import android.content.Context;
 import net.synapticweb.callrecorder.di.AppComponent;
 import net.synapticweb.callrecorder.di.DaggerAppComponent;
 
-import org.acra.ACRA;
-import org.acra.annotation.AcraCore;
-import org.acra.annotation.AcraHttpSender;
-import org.acra.data.StringFormat;
-import org.acra.sender.HttpSender;
+// REMOVED: ACRA CRASH REPORTING - ZERO TELEMETRY
 
 //Oferă context cînd nu este nicio activitate disponibilă. Are nevoie ca să funcționeze de
 // android:name=".CrApp" în AndroidManifest.xml
 //Servește și ca bibliotecă a aplicației.
-@AcraCore(reportFormat = StringFormat.KEY_VALUE_LIST)
-@AcraHttpSender(uri = "http://crashes.infopsihologia.ro",
-        httpMethod = HttpSender.Method.POST )
 public class CrApp extends Application {
     public AppComponent appComponent;
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        if(!BuildConfig.DEBUG)
-            ACRA.init(this);
+        // REMOVED: ACRA.init(this) - NO CRASH REPORTING
         appComponent = DaggerAppComponent.factory().create(base);
     }
 

@@ -1,27 +1,192 @@
-# SW Call Recorder
+# Privacy Call Recorder
 
-SW Call Recorder is an Android application that automatically records phone calls based on user selected phone numbers.
-It has the following main features:
+> **100% Clean Build - Zero Telemetry - Self-Hosted**
 
-- The phone numbers are organized into contacts.
-- Every contact can have an associated picture selected by the user.
-- There are 4 possible recording formats: WAV (Lossless),  AAC 128kbs, AAC 64kbps and AAC 32kbps.
-- Recordings can be mono or stereo.
-- The device can be put automatically on speaker while the application records the call.
-- Recordings can be stored in the application's private storage space or in a public accessible location on the device. If they are stored in a public accessible location, they can be easily transferred to other devices, like a laptop. The location of the recordings on the device can be easily changed.
-- Phone calls from private (unknown) numbers are supported.
-- The user can rename the recordings.
-- The recordings can be played from within the application with the help of a dedicated audio player.
-- The audio player can modify the sound volume of the device while playing. After the playing finishes, the audio volume of the device automatically comes back to the previous value.
-- The audio player can apply a gain to the audio signal to further control how loud the sound is played.
-- The application has 2 themes: light and dark.
+[![Build APK](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/build.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/build.yml)
 
-Because of the restrictions imposed by Google on requesting permissions from the Call log permission group (https://play.google.com/about/privacy-security-deception/permissions/), the app is currently developed using two branches: the `original-app` branch and the `gpcompliant` (from "google play compliant") branch.
+## 🐶 What is this?
 
-The `gpcompliant` branch does not use the READ_CALL_LOG and PROCESS_OUTGOING_CALLS permissions and consequently the versions of the app compiled from this source cannot obtain the outgoing phone number in all supported versions of Android and cannot obtain the incoming phone number in Android versions 9 and above. This has consequences on the overall appearance and behavior of the app that are documented in the "Recording phone calls" section of the Help menu. These versions have the substring 'gpcompliant' appended to the version string.
+A **privacy-first, self-hosted call recorder** for Android - forked from SW Call Recorder with **ALL telemetry removed**.
 
-The `original-app` branch retains all the functions that were removed from the `gpcompliant` branch. The versions of the app compiled from this source have the substring 'original' appended to the version string.
+## ✨ Features
 
-<!--<a href="https://synaptic-call-recorder.en.aptoide.com/"><img width="135px" alt="Android app on Aptoide" src="https://cdn6.aptoide.com/includes/themes/2014/images/aptoide_badge.svg?timestamp=timestamp=20190529"></a>-->
+- ✅ **100% Open Source** - Source available under custom license
+- ✅ **Zero Telemetry** - No Firebase, Crashlytics, or ACRA
+- ✅ **Self-Hosted** - All recordings stored locally on device
+- ✅ **Privacy First** - No network access required
+- ✅ **Multiple Formats** - WAV, AAC (high/medium/basic)
+- ✅ **Custom Storage** - Choose where to save recordings
+- ✅ **Contact Integration** - Shows contact names
+- ✅ **Automatic Recording** - Records all calls automatically
 
-<!-- <a href='https://play.google.com/store/apps/details?id=net.synapticweb.callrecorder.gpcompliant.full&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="135px" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a> -->
+## 🔒 What Was Removed
+
+| Component | Status |
+|-----------|--------|
+| **Firebase Analytics** | ❌ REMOVED |
+| **Crashlytics** | ❌ REMOVED |
+| **ACRA Crash Reporting** | ❌ REMOVED |
+| **All Tracking/Telemetry** | ❌ REMOVED |
+| **Data Collection** | ❌ REMOVED |
+
+## 📥 Download
+
+### Option 1: Download from Releases
+
+1. Go to [Releases](../../releases)
+2. Download the latest APK
+3. Install on your device
+
+### Option 2: Download from Artifacts
+
+1. Go to [Actions](../../actions)
+2. Click on the latest successful build
+3. Scroll down to "Artifacts"
+4. Download `call-recorder-privacy-apk`
+5. Unzip and install APK
+
+### Option 3: Build Yourself
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+
+# Build with Gradle
+./gradlew assemblePrivacyRelease
+
+# APK will be at:
+# app/build/outputs/apk/privacy/release/app-privacy-release.apk
+```
+
+## 📱 Requirements
+
+- **Android 8.0+** (API 26+)
+- **Permissions:**
+  - Phone (to detect calls)
+  - Contacts (to show contact names)
+  - Storage (to save recordings)
+  - Microphone (to record audio)
+  - Foreground Service (to record in background)
+
+## 🚀 Installation
+
+1. Download APK
+2. Enable "Install from Unknown Sources" if prompted
+3. Open APK and install
+4. Grant required permissions
+5. Configure settings (format, storage location, etc.)
+6. Start recording!
+
+## 🔧 Building from Source
+
+### Prerequisites
+
+- **Android Studio Hedgehog** (2023.1.1) or later
+- **JDK 17** or later
+- **Android SDK 34**
+
+### Build Steps
+
+```bash
+# 1. Open in Android Studio
+File → Open → Select project folder
+
+# 2. Sync Gradle files
+Click "Sync Now" when prompted
+
+# 3. Build APK
+Build → Build Bundle(s) / APK(s) → Build APK(s)
+
+# 4. Locate APK
+app/build/outputs/apk/privacy/release/app-privacy-release.apk
+```
+
+### Command Line Build
+
+```bash
+# Clean build
+./gradlew clean
+
+# Build privacy release APK
+./gradlew assemblePrivacyRelease
+```
+
+## 📋 Technical Details
+
+| Property | Value |
+|----------|-------|
+| **App ID** | `net.synapticweb.callrecorder.private.privacy` |
+| **Version** | 1.1.4-private-privacy |
+| **Min SDK** | Android 8.0 (API 26) |
+| **Target SDK** | Android 16 (API 34) |
+| **Java Version** | 17 |
+| **Native Libraries** | arm64-v8a, armeabi-v7a |
+
+## 📄 License
+
+This project is based on **SW Call Recorder** by Eugen Rădulescu.
+
+### Original License
+
+The original source code is licensed under a custom license by Eugen Rădulescu <synapticwebb@gmail.com>.
+
+You may use, distribute, and modify this code only under the conditions stated in the original license file (`LICENSE.md`).
+
+### Modifications
+
+This fork includes the following modifications:
+- Removal of all telemetry components (Firebase, Crashlytics, ACRA)
+- Optimization for modern Android devices
+- Build configuration updates
+
+### Your Rights
+
+- ✅ Use for personal purposes
+- ✅ Modify and rebuild from source
+- ✅ Distribute your modified version (with attribution)
+- ❌ Cannot use the original app name commercially
+- ✅ Must include attribution to original author
+
+## 🙏 Attribution
+
+- **Original Author:** Eugen Rădulescu <synapticwebb@gmail.com>
+- **Original Project:** [SW Call Recorder](https://github.com/synapticweb/CallRecorder)
+- **Privacy Clean Build:** Forked and modified with ❤️
+
+## 🐶 About This Fork
+
+This fork was created to provide a **truly privacy-first** version of SW Call Recorder by removing all telemetry and tracking components. Perfect for users who want:
+
+- Complete control over their data
+- No cloud services or tracking
+- Self-hosted, offline-only operation
+- 100% transparency in what the app does
+
+## 🤝 Contributing
+
+Contributions are welcome! Please ensure:
+
+1. No telemetry or tracking is added
+2. Code follows the existing style
+3. All changes are documented
+4. License requirements are respected
+
+## 📞 Support
+
+- **Original app issues:** synapticwebb@gmail.com
+- **This fork:** Open a GitHub Issue
+- **Build problems:** Check the [Actions](../../actions) tab for build logs
+
+## ⚠️ Disclaimer
+
+Call recording laws vary by country and region. Users are responsible for:
+- Understanding local laws regarding call recording
+- Obtaining necessary consent from parties
+- Complying with applicable regulations
+
+This software is provided "as is" without warranty of any kind.
+
+---
+
+**Built with 🐶 for privacy-conscious users everywhere!**
