@@ -33,7 +33,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.chibde.visualizer.LineBarVisualizer;
+// REMOVED: import com.chibde.visualizer.LineBarVisualizer - Library deprecated
+import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 public class PlayerActivity extends BaseActivity {
@@ -44,7 +45,7 @@ public class PlayerActivity extends BaseActivity {
     SeekBar playSeekBar;
     TextView playedTime, totalTime;
     boolean userIsSeeking = false;
-    LineBarVisualizer visualizer;
+    BarVisualizer visualizer;
     AudioManager audioManager;
     int phoneVolume;
     Croller gainControl, volumeControl;
