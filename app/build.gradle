@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.27'
     implementation 'androidx.preference:preference:1.2.1'
-    implementation 'com.github.gauravk95:AudioVisualizer:0.9.2'
+    // REMOVED: AudioVisualizer - Library not available on jitpack (401 error)
     
     implementation project(':Croller')
     

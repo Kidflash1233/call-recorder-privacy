@@ -33,8 +33,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-// REMOVED: import com.chibde.visualizer.LineBarVisualizer - Library deprecated
-import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
+// REMOVED: AudioVisualizer library - Not essential for call recording
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 public class PlayerActivity extends BaseActivity {
@@ -45,7 +44,7 @@ public class PlayerActivity extends BaseActivity {
     SeekBar playSeekBar;
     TextView playedTime, totalTime;
     boolean userIsSeeking = false;
-    BarVisualizer visualizer;
+    // REMOVED: visualizer - Library not available
     AudioManager audioManager;
     int phoneVolume;
     Croller gainControl, volumeControl;
@@ -73,18 +72,7 @@ public class PlayerActivity extends BaseActivity {
         }
 
         recording = getIntent().getParcelableExtra(ContactDetailFragment.RECORDING_EXTRA);
-        visualizer = findViewById(R.id.visualizer);
-        visualizer.setColor(getResources().getColor(R.color.colorAccentLighter));
-        visualizer.setDensity(getResources().getConfiguration().orientation ==
-                Configuration.ORIENTATION_PORTRAIT ? DENSITY_PORTRAIT : DENSITY_LANDSCAPE);
-        //crash report nr. 886:
-        try {
-            visualizer.setPlayer(AUDIO_SESSION_ID);
-        }
-        catch (Exception exc) {
-            CrLog.log(CrLog.ERROR, "Error initializing visualizer.");
-            visualizer = null;
-        }
+        // REMOVED: visualizer code - Library not available
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         playPause = findViewById(R.id.test_player_play_pause);
@@ -173,12 +161,7 @@ public class PlayerActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(visualizer != null) {
-            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                visualizer.setDensity(DENSITY_LANDSCAPE);
-            else
-                visualizer.setDensity(DENSITY_PORTRAIT);
-        }
+        // REMOVED: visualizer orientation handling
     }
 
     @Override
@@ -232,8 +215,7 @@ public class PlayerActivity extends BaseActivity {
         editor.remove(IS_PLAYING);
         editor.remove(CURRENT_POS);
         editor.apply();
-        if(visualizer != null)
-            visualizer.release();
+        // REMOVED: visualizer.release()
         if(audioManager != null)
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, phoneVolume, 0);
     }
