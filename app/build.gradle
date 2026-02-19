@@ -84,7 +84,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.github.CanHub:Android-Image-Cropper:4.0.0'
+    // REMOVED: Image cropper - Using images directly without cropping
     implementation 'com.github.codekidX:storage-chooser:2.0.4.4'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.27'

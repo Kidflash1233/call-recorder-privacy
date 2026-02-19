@@ -47,8 +47,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.canhub.cropper.CropImage;
-import com.canhub.cropper.CropImageView;
+// REMOVED: Image cropper imports - Using images directly
 
 import net.synapticweb.callrecorder.Config;
 import net.synapticweb.callrecorder.CrApp;
@@ -341,43 +340,25 @@ public class EditContactActivity extends BaseActivity implements AdapterView.OnI
                 CrLog.log(CrLog.ERROR, "The pick image activity returned this error code: " + resultCode);
                 Toast.makeText(this, "Cannot pick picture", Toast.LENGTH_SHORT).show();
             }
-            if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Exception error = result.getError();
-                CrLog.log(CrLog.ERROR,  "Error cropping the image: " + error.getMessage());
-                Toast.makeText(this, "Cannot crop the image", Toast.LENGTH_SHORT).show();
-            }
             return;
         }
 
-        if (requestCode == PICK_IMAGE_REQUEST && (chosenPhotoUri = data.getData()) != null) {
-            CropImage.activity(chosenPhotoUri).setCropShape(CropImageView.CropShape.OVAL)
-                    .setOutputUri(FileProvider.getUriForFile(this, Config.FILE_PROVIDER, savedPhotoPath))
-                    .setAspectRatio(1,1)
-                    .setMaxCropResultSize(2000, 2000) //vezi mai jos comentariul
-                    .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
-                    .setOutputCompressQuality(70)
-                    .start(this);
-        }
-        else if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            chosenPhotoUri = result.getUri();
-            contactPhoto.clearColorFilter();
-            contactPhoto.setImageURI(null); //cînd se schimbă succesiv 2 poze făcute de cameră se folosește același fișier și optimizările android fac necesar acest hack pentru a obține refresh-ul pozei
+        // SIMPLIFIED: Use images directly without cropping
+        if (requestCode == PICK_IMAGE_REQUEST && (chosenPhotoUri = data.getData()) != null) {\            contactPhoto.clearColorFilter();
+            contactPhoto.setImageURI(null);
             contactPhoto.setImageURI(chosenPhotoUri);
             this.oldPhotoUri = contact.getPhotoUri();
             contact.setPhotoUri(chosenPhotoUri);
             dataChanged = true;
         }
         else if(requestCode == TAKE_PICTURE) {
-            CropImage.activity(FileProvider.getUriForFile(this, Config.FILE_PROVIDER, savedPhotoPath))
-                    .setCropShape(CropImageView.CropShape.OVAL)
-                    .setOutputUri(FileProvider.getUriForFile(this, Config.FILE_PROVIDER, savedPhotoPath))
-                    .setMaxCropResultSize(2000, 2000) //necesar, pentru că dacă poza e prea mare apare un rotund negru
-                    .setOutputCompressFormat(Bitmap.CompressFormat.JPEG) //necesar, pentru că fișierul output are
-                    //totdeauna extensia .jpg
-                    .setOutputCompressQuality(70)
-                    .start(this);
+            chosenPhotoUri = FileProvider.getUriForFile(this, Config.FILE_PROVIDER, savedPhotoPath);
+            contactPhoto.clearColorFilter();
+            contactPhoto.setImageURI(null);
+            contactPhoto.setImageURI(chosenPhotoUri);
+            this.oldPhotoUri = contact.getPhotoUri();
+            contact.setPhotoUri(chosenPhotoUri);
+            dataChanged = true;
         }
     }
 

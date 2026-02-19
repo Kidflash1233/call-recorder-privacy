@@ -50,8 +50,7 @@
             android:parentActivityName=".contactdetail.ContactDetailActivity">
         </activity>
 
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <!-- REMOVED: CropImageActivity - Cropping disabled -->
 
         <!--Fără screenSize continuă să se restarteze. -->
 
