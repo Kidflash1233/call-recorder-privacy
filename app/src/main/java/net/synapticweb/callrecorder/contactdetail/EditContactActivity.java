@@ -344,7 +344,8 @@ public class EditContactActivity extends BaseActivity implements AdapterView.OnI
         }
 
         // SIMPLIFIED: Use images directly without cropping
-        if (requestCode == PICK_IMAGE_REQUEST && (chosenPhotoUri = data.getData()) != null) {\            contactPhoto.clearColorFilter();
+        if (requestCode == PICK_IMAGE_REQUEST && (chosenPhotoUri = data.getData()) != null) {
+            contactPhoto.clearColorFilter();
             contactPhoto.setImageURI(null);
             contactPhoto.setImageURI(chosenPhotoUri);
             this.oldPhotoUri = contact.getPhotoUri();
